@@ -6,9 +6,10 @@ const app = express();
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
 const authRoutes = require("./routes/auth");
 
-//DataBase Connection
+//DB Connection
 mongoose
   .connect(process.env.DATABASE, {
     useNewUrlParser: true,
@@ -17,12 +18,9 @@ mongoose
   })
   .then(() => {
     console.log("DB CONNECTED");
-  })
-  .catch((err) => {
-    cosolog.log(err);
   });
 
-//MiddleWare
+//Middlewares
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use(cors());
@@ -30,8 +28,10 @@ app.use(cors());
 //My Routes
 app.use("/api", authRoutes);
 
-//port
+//PORT
 const port = 3000;
 
-//Strting Server
-app.listen(port, () => console.log(`App is running at ${port}`));
+//Starting a server
+app.listen(port, () => {
+  console.log(`app is running at ${port}`);
+});
