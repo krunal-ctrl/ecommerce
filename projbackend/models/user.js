@@ -25,7 +25,7 @@ var userSchema = new mongoose.Schema(
       type: String,
       trim: true,
     },
-    encry_passwrod: {
+    encry_password: {
       type: String,
       required: true,
     },
@@ -47,7 +47,7 @@ userSchema
   .set(function (password) {
     this._password = password;
     this.salt = uuidv1();
-    this.encry_passwrod = this.securePassword(password);
+    this.encry_password = this.securePassword(password);
   })
   .get(function () {
     return this._password;
@@ -55,7 +55,7 @@ userSchema
 
 userSchema.methods = {
   authenticate: function (plainPassword) {
-    return this.securePassword(plainPassword) === this.encry_passwrod;
+    return this.securePassword(plainPassword) === this.encry_password;
   },
 
   securePassword: function (plainPassword) {
