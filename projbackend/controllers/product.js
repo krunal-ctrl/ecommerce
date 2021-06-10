@@ -57,3 +57,17 @@ exports.createProduct = (req, res) => {
     });
   });
 };
+
+exports.getProduct = (req, res) => {
+  req.product.photo = undefined;
+  return res.json(req.product);
+};
+
+// middleware
+exports.photo = (req, res, next) => {
+  if (req.product.photo.data) {
+    res.set("Content-Type", req.product.photo.conttentType);
+    return res.send(req.product.photo.data);
+  }
+  next();
+};

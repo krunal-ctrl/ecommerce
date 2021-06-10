@@ -4,7 +4,12 @@ const router = express.Router();
 const { isSignedIn, isAdmin, isAuthenticated } = require("../controllers/auth");
 const { getUserById } = require("../controllers/user");
 
-const { getProductById, createProduct } = require("../controllers/product");
+const {
+  getProductById,
+  createProduct,
+  getProduct,
+  photo,
+} = require("../controllers/product");
 
 // all params
 router.param("userId", getUserById);
@@ -18,5 +23,8 @@ router.post(
   isAdmin,
   createProduct
 );
+
+router.get("/product/:productId", getProduct);
+router.get("/product/photo/:productId", photo);
 
 module.exports = router;
